@@ -15,7 +15,7 @@ export async function fetchBreeds() {
     }
   });
 
-  return breedsWithSubBreeds; // Returner både racer og underacer
+  return breedsWithSubBreeds;
 }
 
 export async function fetchBreedImages(breed) {
@@ -24,5 +24,12 @@ export async function fetchBreedImages(breed) {
     : breed;
   const res = await fetch(`${API_BASE}/breed/${breedPath}/images`);
   const data = await res.json();
-  return data.message; // Returner listen af billeder
+  return data.message;
+}
+
+// New function to fetch random images
+export async function fetchRandomImages() {
+  const res = await fetch(`${API_BASE}/breeds/image/random/6`); // Fetch 6 random images
+  const data = await res.json();
+  return data.message;
 }
