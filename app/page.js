@@ -5,7 +5,7 @@ import { fetchBreeds, fetchBreedImages, fetchRandomImages } from "./lib/dogApi";
 
 export default function Home() {
   const [breeds, setBreeds] = useState([]);
-  const [selectedBreed, setSelectedBreed] = useState("random"); // Default to "random"
+  const [selectedBreed, setSelectedBreed] = useState("random");
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -41,11 +41,21 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Function to extract breed name from a random image URL
+  const extractBreedNameFromUrl = (url) => {
+    const parts = url.split("/");
+    const breedIndex = parts.indexOf("breeds") + 1;
+    if (breedIndex && breedIndex < parts.length) {
+      return parts[breedIndex].replace(/-/g, " ").split(" ")[0]; // Format breed name
+    }
+    return "Unknown";
+  };
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-center mb-4">Dog Breed Viewer</h1>
       <div className="mb-4">
-        <label htmlFor="breed-select" className="block text-sm font-medium mb-2 text-white-800">
+        <label htmlFor="breed-select" className="block text-sm font-medium mb-2 text-White-800">
           Vælg en hunderace:
         </label>
         <select
@@ -53,7 +63,7 @@ export default function Home() {
           className="w-full border border-gray-300 rounded-md p-2 text-gray-800 bg-white"
           onChange={(e) => setSelectedBreed(e.target.value)}
         >
-          <option value="random">Random</option> {/* Default option */}
+          <option value="random">Random</option>
           {breeds.map((breed) => (
             <option key={breed} value={breed} className="text-gray-800">
               {breed}
@@ -64,7 +74,18 @@ export default function Home() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((image, index) => (
-          <img key={index} src={image} alt={`${selectedBreed}`} className="rounded-lg shadow-lg" />
+          <div key={index} className="flex flex-col items-center text-center">
+            <img
+              src={image}
+              alt={selectedBreed === "random" ? "Random Dog" : selectedBreed}
+              className="rounded-lg shadow-lg max-w-full"
+            />
+            {selectedBreed === "random" && (
+              <p className="mt-2 text-sm font-medium text-white-600">
+                {extractBreedNameFromUrl(image)}
+              </p>
+            )}
+          </div>
         ))}
       </div>
 
@@ -78,7 +99,6 @@ export default function Home() {
       )}
 
       {images.length > 0 && (
-        
         <button
           onClick={scrollToTop}
           className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600"
