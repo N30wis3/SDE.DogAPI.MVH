@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchBreeds, fetchBreedImages, fetchRandomImages } from "./lib/dogApi";
+import { Analytics } from "@vercel/analytics/react"
 
 export default function Home() {
   const [breeds, setBreeds] = useState([]);
