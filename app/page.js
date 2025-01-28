@@ -71,7 +71,7 @@ export default function Home() {
       {selectedBreed === "random" && images.length > 0 && (
         <button
           onClick={fetchNewRandomImages}
-          className="fixed bottom-16 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-600"
+          className="fixed bottom-16 right-4 bg-green-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-600"
         >
           New Random Dogs
         </button>
