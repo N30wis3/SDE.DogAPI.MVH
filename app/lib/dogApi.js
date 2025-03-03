@@ -27,9 +27,8 @@ export async function fetchBreedImages(breed) {
   return data.message;
 }
 
-// New function to fetch random images
 export async function fetchRandomImages() {
-  const res = await fetch(`${API_BASE}/breeds/image/random/6`); // Fetch 6 random images
+  const res = await fetch(`${API_BASE}/breeds/image/random/6`);
   const data = await res.json();
   return data.message;
 }

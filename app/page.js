@@ -42,12 +42,12 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Function to extract breed name from a random image URL
+  
   const extractBreedNameFromUrl = (url) => {
     const parts = url.split("/");
     const breedIndex = parts.indexOf("breeds") + 1;
     if (breedIndex && breedIndex < parts.length) {
-      return parts[breedIndex].replace(/-/g, " ").split(" ")[0]; // Format breed name
+      return parts[breedIndex].replace(/-/g, " ").split(" ")[0];
     }
     return "Unknown";
   };
